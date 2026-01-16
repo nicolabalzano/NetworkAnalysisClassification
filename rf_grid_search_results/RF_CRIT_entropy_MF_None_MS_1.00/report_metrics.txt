@@ -1,0 +1,24 @@
+PARAMS: {'criterion': 'entropy', 'max_features': None, 'max_samples': np.float64(0.9999999999999999)}
+ACCURACY:  0.9922
+F1 SCORE:  0.9922
+MACRO F1-SCORE: 0.9920
+PRECISION: 0.9922
+RECALL:    0.9921
+
+--- MODEL CONFIGURATION ---
+CRITERION: entropy
+MAX FEATURES: None
+MAX SAMPLES: 0.9999999999999999
+
+--- CLASSIFICATION REPORT ---
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00      3000
+           1       0.98      0.98      0.98      2000
+           2       1.00      1.00      1.00      2000
+           3       0.98      0.98      0.98      2000
+           4       1.00      1.00      1.00      1000
+
+    accuracy                           0.99     10000
+   macro avg       0.99      0.99      0.99     10000
+weighted avg       0.99      0.99      0.99     10000
