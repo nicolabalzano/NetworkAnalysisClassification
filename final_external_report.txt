@@ -1,0 +1,18 @@
+--- FINAL MODEL EVALUATION ON EXTERNAL TEST SET ---
+Accuracy:  0.9940
+F1 Score:  0.9940
+Precision: 0.9941
+Recall:    0.9940
+
+--- CLASSIFICATION REPORT ---
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00       300
+           1       0.98      1.00      0.99       200
+           2       1.00      0.99      1.00       200
+           3       0.99      0.98      0.99       200
+           4       1.00      0.99      0.99       100
+
+    accuracy                           0.99      1000
+   macro avg       0.99      0.99      0.99      1000
+weighted avg       0.99      0.99      0.99      1000

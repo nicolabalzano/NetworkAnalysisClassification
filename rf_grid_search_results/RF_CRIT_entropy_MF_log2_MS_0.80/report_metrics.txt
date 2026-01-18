@@ -1,7 +1,6 @@
 PARAMS: {'criterion': 'entropy', 'max_features': 'log2', 'max_samples': np.float64(0.7999999999999999)}
 ACCURACY:  0.9934
 F1 SCORE:  0.9934
-MACRO F1-SCORE: 0.9960
 PRECISION: 0.9935
 RECALL:    0.9932
 

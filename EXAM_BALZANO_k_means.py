@@ -41,7 +41,17 @@ def calculate_purity(labels_true, labels_pred):
     """
     Calcola la Purity: (1/N) * sum(max(cluster_i ∩ class_j))
     """
+    # per ogni cluster, trova la classe più frequente
+    # crosstab crea una tabella in cui le righe sono i cluster e le colonne le classi
+    # ogni cella contiene il conteggio delle occorrenze
+    """
+    Cluster	    Gatto	Cane	Uccello
+        0	    20	    5	    0
+        1	    2	    30	    3
+        2	    0	    0       40
+    """
     contingency_matrix = pd.crosstab(labels_pred, labels_true)
+    # somma delle massime occorrenze per cluster diviso il totale
     return contingency_matrix.max(axis=1).sum() / len(labels_true)
 
 def evaluate_kmeans_purity(X, y, k_range, random_state=SEED):
@@ -52,15 +62,17 @@ def evaluate_kmeans_purity(X, y, k_range, random_state=SEED):
     print(f"Valutazione K-means in corso (Range: {k_range.start}-{k_range.stop-1})...")
     
     for k in k_range:
-        # n_init='auto' o 10 per stabilità
+        # n_init='auto' o 10 per stabilità, determina il numero di inizializzazioni indipendenti
         kmeans = KMeans(n_clusters=k, random_state=random_state, n_init=10)
         cluster_labels = kmeans.fit_predict(X)
         
         purity = calculate_purity(y, cluster_labels)
         inertia = kmeans.inertia_
         
+        # inertia e' la somma delle distanze quadratiche dei campioni dal centroide più vicino
+        # più basso è meglio, indica cluster più compatti
         results[k] = {'purity': purity, 'inertia': inertia, 'model': kmeans}
-        # print(f"  k={k}: Purity={purity:.4f}") # Decommentare per log dettagliato
+        # print(f"  k={k}: Purity={purity:.4f}")
         
     return results
 
@@ -70,10 +82,10 @@ def get_optimal_k_elbow(results_dict):
     dalla retta che congiunge il primo e l'ultimo punto della curva Purity.
     """
     ks = sorted(results_dict.keys())
-    purities = [results_dict[k]['purity'] for k in ks]
+    purities = [results_dict[k]['purity'] for k in ks] # Lista delle purity corrispondenti
     
     # Punti estremi della curva
-    p1 = np.array([ks[0], purities[0]])
+    p1 = np.array([ks[0], purities[0]]) 
     p2 = np.array([ks[-1], purities[-1]])
     
     max_dist = 0
@@ -82,8 +94,13 @@ def get_optimal_k_elbow(results_dict):
     for i, k in enumerate(ks):
         p0 = np.array([k, purities[i]])
         # Formula distanza punto-retta
+        """
+        misura la lunghezza del segmento perpendicolare che parte dal punto p0
+        e arriva alla retta definita dai punti p1 e p2.
+        
+        """
         numerator = np.abs((p2[1] - p1[1]) * p0[0] - (p2[0] - p1[0]) * p0[1] + p2[0] * p1[1] - p2[1] * p1[0])
-        denominator = np.linalg.norm(p2 - p1)
+        denominator = np.linalg.norm(p2 - p1) # distanza euclidea tra p1 e p2
         
         dist = numerator / denominator
         

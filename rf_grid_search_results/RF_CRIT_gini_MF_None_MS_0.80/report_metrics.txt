@@ -1,7 +1,6 @@
 PARAMS: {'criterion': 'gini', 'max_features': None, 'max_samples': np.float64(0.7999999999999999)}
 ACCURACY:  0.9925
 F1 SCORE:  0.9925
-MACRO F1-SCORE: 0.9920
 PRECISION: 0.9925
 RECALL:    0.9924
 
